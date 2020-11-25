@@ -10,7 +10,14 @@ RUN apt-get update && \
   apt-get -y install git unzip libzip-dev libicu-dev libonig-dev && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* && \
-  docker-php-ext-install intl pdo_mysql zip bcmath
+  docker-php-ext-install intl pdo_mysql zip bcmath &&\
+  apt-get -y update &&\
+  apt-get install -y \
+  curl \
+  gnupg &&\
+  curl -sL https://deb.nodesource.com/setup_11.x | bash - && \
+  apt-get install -y nodejs && \
+  npm install npm@latest -g
 
 COPY ./php.ini /usr/local/etc/php/php.ini
 
