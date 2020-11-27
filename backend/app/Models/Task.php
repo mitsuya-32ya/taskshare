@@ -20,4 +20,9 @@ class Task extends Model
     { 
         return $this->belongsTo('App\Models\User');
     }
+
+    public function getTimelines()
+    {
+        return $this->orderby('updated_at','DESC')->paginate(10);
+    }
 }
