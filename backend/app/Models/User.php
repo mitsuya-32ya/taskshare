@@ -58,4 +58,9 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function getAllUsers(Int $user_id)
+    {
+        return $this->where('id', '<>',$user_id)->simplePaginate(5);
+    }
 }

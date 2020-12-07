@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\User;
+use App\Models\Task;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -11,9 +13,13 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(User $user)
     {
-        //
+        $all_users = $user->getAllUsers(auth()->user()->id);
+
+        return view('users.index',[
+            'all_users' => $all_users
+        ]);
     }
 
     /**
@@ -43,9 +49,20 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user,Task $task)
     {
-        //
+        $auth_user = auth()->user();
+        $timelines = $task->getUserTimeLine($user->id);
+        $completed_task_count = $task->getCompletedTaskCount($user->id);
+        $working_task_count = $task->getWorkingTaskCount($user->id);
+
+        return view('users.show',[
+            'user' => $user,
+            'auth_user' => $auth_user,
+            'timelines' => $timelines,
+            'completed_task_count' => $completed_task_count,
+            'working_task_count' => $working_task_count
+        ]);
     }
 
     /**

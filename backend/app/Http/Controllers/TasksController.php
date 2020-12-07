@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class TasksController extends Controller
 {
@@ -29,7 +30,11 @@ class TasksController extends Controller
      */
     public function create()
     {
-        //
+        $auth_user = auth()->user();
+
+        return view('tasks.create', [
+            'auth_user' => $auth_user
+        ]);
     }
 
     /**
@@ -38,9 +43,19 @@ class TasksController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Task $task)
     {
-        //
+        $auth_user = auth()->user();
+        $data = $request->all();
+        $validator = Validator::make($data, [
+            'task_name' => ['required','string','max:50'],
+            'due_date' => ['required','after:yesterday']
+        ]);
+
+        $validator->validate();
+        $task->taskStore($auth_user->id,$data);
+
+        return redirect('tasks');
     }
 
     /**
@@ -49,9 +64,15 @@ class TasksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Task $task)
     {
-        //
+        $user = auth()->user();
+        $task = $task->getTask($task->id);
+
+        return view('tasks.show', [
+            'user' => $user,
+            'task' => $task,
+        ]);
     }
 
     /**
@@ -60,9 +81,19 @@ class TasksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Task $task)
     {
-        //
+        $auth_user = auth()->user();
+        $edit_task = $task->getEditTask($auth_user->id, $task->id);
+
+        if(!isset($edit_task)){
+            return redirect('tasks');
+        }
+
+        return view('tasks.edit', [
+            'auth_user' => $auth_user,
+            'edit_task' => $edit_task
+        ]);
     }
 
     /**
@@ -72,9 +103,19 @@ class TasksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Task $task)
     {
-        //
+        $data = $request->all();
+        $validator = Validator::make($data, [
+            'task_name' => ['required','string','max:50'],
+            'due_date' => ['required','after:yesterday'],
+            'status' =>['required','in:1,2']
+        ]);
+
+        $validator->validate();
+        $task->taskUpdate($task->id,$data);
+
+        return redirect('tasks');
     }
 
     /**
@@ -83,8 +124,9 @@ class TasksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Task $task)
     {
-        //
+        $task->taskDestroy(auth()->user()->id, $task->id);
+        return back();
     }
 }
