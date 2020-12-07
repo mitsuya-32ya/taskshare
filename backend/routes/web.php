@@ -17,8 +17,9 @@ use App\Http\Controllers;
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::resource('/tasks', 'App\Http\Controllers\TasksController');
+Route::resource('/users','App\Http\Controllers\UsersController');
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    Route::resource('/tasks', 'App\Http\Controllers\TasksController');
+    
     return view('dashboard');
 })->name('dashboard');
