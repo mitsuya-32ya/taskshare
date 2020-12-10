@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,9 +18,10 @@ use App\Http\Controllers;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::resource('/tasks', 'App\Http\Controllers\TasksController');
-Route::resource('/users','App\Http\Controllers\UsersController');
+Route::resource('/tasks', 'App\Http\Controllers\TasksController')->middleware(['auth:sanctum', 'verified']);
+Route::resource('/users','App\Http\Controllers\UsersController')->middleware(['auth:sanctum', 'verified']);
+Route::resource('/comments','App\Http\Controllers\CommentsController')->middleware(['auth:sanctum', 'verified']);
+Route::resource('/favorites','App\Http\Controllers\FavoritesController')->middleware(['auth:sanctum', 'verified']);
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    
     return view('dashboard');
 })->name('dashboard');

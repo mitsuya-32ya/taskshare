@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'TaskShare') }}</title>
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
@@ -17,10 +17,23 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <!-- ブルーテーマの追加スタイルシート -->
     <link rel="stylesheet" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
-    @livewireStyles
+    <!-- Font Awesome -->
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+    <style>
+        .group:hover .group-hover\:visible {
+            visibility: visible;
+        }
 
-    <!-- Scripts -->
-    <script src="{{ mix('js/app.js') }}" defer></script>
+        .group:hover .group-hover\:invisible {
+            visibility: hidden;
+        }
+    </style>
+</head>
+@livewireStyles
+
+
+<!-- Scripts -->
+<script src="{{ mix('js/app.js') }}" defer></script>
 </head>
 
 <body class="font-sans antialiased">

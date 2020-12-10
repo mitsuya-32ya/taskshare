@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Task;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -64,14 +65,16 @@ class TasksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Task $task)
+    public function show(Task $task, Comment $comment)
     {
         $user = auth()->user();
         $task = $task->getTask($task->id);
+        $comments = $comment->getComments($task->id);
 
         return view('tasks.show', [
             'user' => $user,
             'task' => $task,
+            'comments' => $comments
         ]);
     }
 
@@ -115,7 +118,7 @@ class TasksController extends Controller
         $validator->validate();
         $task->taskUpdate($task->id,$data);
 
-        return redirect('tasks');
+        return redirect('users/'. auth()->user()->id);
     }
 
     /**

@@ -1,21 +1,11 @@
 @component('layouts.app')
 @slot('header')
-<div class="flex">
-  @if($user->id === Auth::user()->id)
-  <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-    あなたの課題
-  </h2>
-  @else
-  <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-    {{ $user->name }}さんの課題
-  </h2>
-  @endif
-  <p class="ml-8 text-gray-500">作業中の課題数:{{ $working_task_count }}</p>
-  <p class="ml-4 text-gray-500">完了した課題数:{{ $completed_task_count }}</p>
-</div>
+{{ $header }}
 @endslot
+@slot('slot')
 
-@foreach ( $timelines as $task )
+{{ $top }}
+
 <div class="container m-auto">
   <div class="bg-{{ $task->status_color }}-100 border rounded-sm border-{{ $task->status_color }}-300 m-5">
     <div class="p-3 border-b border-{{ $task->status_color }}-300 flex justify-between">
@@ -27,24 +17,9 @@
       </div>
     </div>
     <div class="p-3 ">
-      <div class="flex justify-between">
-        <div><a href="{{ url('tasks/' . $task->id)}}" class="text-lg font-bold hover:text-{{ $task->status_color }}-700">{{ $task->task_name }}</a></div>
-        @if ($task->status === 1 && $task->user->id === Auth::user()->id)
-        <div>
-          <form method="POST" action="{{ url('tasks/' . $task->id) }}">
-            @csrf
-            @method('PUT')
-            <input type="hidden" class="form-input mt-1 block w-full" name="task_name" id="task_name" value="{{ $task->task_name }}">
-            <input type="hidden" name="status" id="status" value="2">
-            <input type="hidden" name="due_date" id="due_date" value="{{ $task->due_date }}">
-            <button class="px-2 border rounded border-transparent border-gray-300 text-gray-700 focus:outline-none focus:border-transparent bg-blue-300 hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-green-200 focus:ring-opacity-50">
-              状態を完了に変更!!
-            </button>
-          </form>
-        </div>
-        @endif
-      </div>
-      <div>
+      <a href="{{ url('tasks/' . $task->id)}}" class="text-lg font-bold hover:text-{{ $task->status_color }}-700">{{ $task->task_name }}</a>
+
+      <div class="">
         <p>状態:{{ $task->status_name }}</p>
       </div>
       <div class="flex justify-between">
@@ -102,6 +77,8 @@
     </div>
   </div>
 </div>
-@endforeach
 
+{{ $bottom }}
+
+@endslot
 @endcomponent

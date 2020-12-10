@@ -15,8 +15,17 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $users = ['鈴木正史','佐藤美知子','高橋拓海','田中幸子','伊藤武志','渡辺加奈子','山本花子','中村優希','小林太郎','加藤次郎'];
+        $users = ['鈴木正史','佐藤美知子','高橋拓海','田中幸子','伊藤武志','渡辺加奈子','山本花子','中村優希','小林太郎'];
         
+        DB::table('users')->insert([
+            'name' => '山田太郎',
+            'email' => 'yamada@example.com',
+            'password' => Hash::make('password'),
+            'remember_token' => str_random(10),
+            'created_at' => now(),
+            'updated_at' =>now()
+        ]);
+
         foreach( $users as $user ){
             DB::table('users')->insert([
                 'name' => $user,
