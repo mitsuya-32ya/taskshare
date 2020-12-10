@@ -1,6 +1,8 @@
 @component('layouts.app')
 @slot('header')
-
+<h2 class="font-semibold text-xl text-gray-800 leading-tight">
+  編集
+</h2>
 
 @endslot
 <div class="container">
