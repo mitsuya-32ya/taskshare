@@ -132,10 +132,26 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-jet-responsive-nav-link>
+        <x-jet-responsive-nav-link href="{{ url('users/' . Auth::user()->id ) }}" :active="request()->is('users/' . Auth::user()->id )">
+                        {{ __('あなたの課題') }}
+                    </x-jet-nav-link>
         </div>
+        <div class="pt-2 pb-3 space-y-1">
+        <x-jet-responsive-nav-link href="{{ route('tasks.create') }}" :active="request()->routeIs('tasks.create')">
+                        {{ __('新規作成') }}
+                    </x-jet-nav-link>
+        </div>
+        <div class="pt-2 pb-3 space-y-1">
+        <x-jet-responsive-nav-link href="{{ route('tasks.index') }}" :active="request()->routeIs('tasks.index')">
+                        {{ __('みんなの課題') }}
+                    </x-jet-nav-link>
+        </div>
+        <div class="pt-2 pb-3 space-y-1">
+        <x-jet-responsive-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.index')">
+                        {{ __('ユーザー一覧') }}
+                    </x-jet-nav-link>
+        </div>
+        
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
@@ -153,7 +169,7 @@
             <div class="mt-3 space-y-1">
                 <!-- Account Management -->
                 <x-jet-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
-                    {{ __('Profile') }}
+                    {{ __('プロフィール') }}
                 </x-jet-responsive-nav-link>
 
                 @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
@@ -169,7 +185,7 @@
                     <x-jet-responsive-nav-link href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                        {{ __('Logout') }}
+                        {{ __('ログアウト') }}
                     </x-jet-responsive-nav-link>
                 </form>
 
