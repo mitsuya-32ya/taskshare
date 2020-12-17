@@ -134,6 +134,14 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'task_name' => [
+            'required' => '課題を設定してください。',
+            'max' => '50文字以内で設定してください。'
+
+        ],
+        'due_date' => [
+            'required' => '期限を設定してください。'
+        ],
     ],
 
     /*
@@ -148,5 +156,7 @@ return [
     */
 
     'attributes' => [],
+
+
 
 ];
