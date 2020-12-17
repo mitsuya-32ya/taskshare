@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>TaskShare</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -429,7 +429,7 @@ line-height: 2.25rem;
             @if (Route::has('login'))
             <div class="">
                 @auth
-                <a href="{{ url('/dashboard') }}" class="text-center text-xl text-gray-600">ダッシュボードへ</a>
+                <a href="{{ url('users/' . Auth::user()->id ) }}" class="text-center text-xl text-gray-600">あなたの課題へ</a>
                 @else
                 <a href="{{ route('login') }}" class="text-center text-xl text-gray-600">ログインはこちら
                 </a>
