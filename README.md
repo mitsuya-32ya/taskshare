@@ -1,11 +1,4 @@
 # taskshare
-[こちらのサイトです。](http://52.199.36.103)※現在はEC2インスタンスを削除しています
-
-メールアドレス:yamada@example.com
-
-パスワード:password
-
-でログインできます。
 
 ## セットアップ
 
@@ -38,8 +31,6 @@ $ php artisan migrate
 言語/フレームワーク PHP/Laravel
 
 データベース MySQL
-
-インフラ AWS
 
 ## 機能一覧
 
