@@ -4,12 +4,9 @@
 
 こちらの手順に従ってローカル上で構築できます
 
-こちらのリポジトリを、cloneします。
+
 ```
-$ git clone git@github.com:Mitsuya-Sora/set_up_laravel_with_docker.git
-```
-コンテナを起動し、初期設定をします。
-```
+$ git clone git@github.com:Mitsuya-Sora/taskshare.git
 $ cd set_up_laravel_with_docker
 $ docker-compose up -d --build
 $ docker-compose exec app bash
