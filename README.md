@@ -7,7 +7,7 @@
 
 ```
 $ git clone git@github.com:Mitsuya-Sora/taskshare.git
-$ cd set_up_laravel_with_docker
+$ cd taskshare
 $ docker-compose up -d --build
 $ docker-compose exec app bash
 $ composer install
